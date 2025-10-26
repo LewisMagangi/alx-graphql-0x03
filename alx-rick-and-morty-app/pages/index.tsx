@@ -1,12 +1,22 @@
+
 import { useQuery } from "@apollo/client"
 import { GET_EPISODES } from "@/graphql/queries"
 import { EpisodeProps } from "@/interfaces"
 import EpisodeCard from "@/components/common/EpisodeCard"
 import { useEffect, useState } from "react"
+import ErrorBoundary from '@/components/ErrorBoundary';
+import ErrorProneComponent from '@/components/ErrorProneComponent';
+
 
 
 
 const Home: React.FC = () => {
+  // Test ErrorBoundary by rendering ErrorProneComponent
+  return (
+    <ErrorBoundary>
+      <ErrorProneComponent />
+    </ErrorBoundary>
+  );
 
   const [page, setPage] = useState<number>(1)
   const { loading, error, data, refetch } = useQuery(GET_EPISODES, {
@@ -27,6 +37,11 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#A3D5E0] to-[#F4F4F4] text-gray-800">
+      {/* Test ErrorBoundary: Uncomment below to trigger error */}
+      {/* <ErrorBoundary>
+        <ErrorProneComponent />
+      </ErrorBoundary> */}
+
       {/* Header */}
       <header className="bg-[#4CA1AF] text-white py-6 text-center shadow-md">
         <h1 className="text-4xl font-bold tracking-wide">Rick and Morty Episodes</h1>
